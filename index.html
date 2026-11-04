@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f7ef" />
+  <title>FreshMind — Smart food management</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand"><span class="brand-mark">✳</span> freshmind</div>
+    <div class="nav-label">Workspace</div>
+    <nav class="nav">
+      <button class="active" data-screen="home"><span>⌂</span> Overview</button>
+      <button data-screen="fridge"><span>▣</span> My fridge</button>
+      <button data-screen="recipes"><span>♨</span> Smart recipes</button>
+      <button data-screen="add"><span>＋</span> Add product</button>
+    </nav>
+    <div class="side-note">
+      <strong>Less waste, more taste.</strong><br />
+      FreshMind helps you use the food you already have, starting with the ingredients that need attention first.
+    </div>
+  </aside>
+
+  <main>
+    <header class="top">
+      <div>
+        <div class="eyebrow">Your kitchen, made smarter</div>
+        <h1 id="page-title">Good morning, Alex 👋</h1>
+        <div class="sub" id="page-subtitle">Here's what needs your attention today.</div>
+      </div>
+      <div class="avatar">A</div>
+    </header>
+
+    <!-- ========== Overview ========== -->
+    <section class="screen active" id="home">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">YOUR DAILY FOOD PLAN</div>
+          <h2>Make the most of what's fresh.</h2>
+          <p>You have ingredients that are best used soon. Let's turn them into something delicious.</p>
+          <button class="btn light" data-screen="recipes">See today's recipes →</button>
+        </div>
+        <div class="hero-icon">🥬</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="label">In your fridge</span><strong id="total-count">8</strong><small>tracked ingredients</small></div>
+        <div class="stat"><span class="label">Use soon</span><strong id="urgent-count">3</strong><small>within the next 2 days</small></div>
+        <div class="stat"><span class="label">Waste avoided</span><strong>€18.40</strong><small>estimated this month</small></div>
+      </div>
+
+      <div class="section-head">
+        <h3>Use these first</h3>
+        <button class="text-link" data-screen="fridge">View all →</button>
+      </div>
+      <div class="food-list" id="priority-list"></div>
+
+      <div class="section-head">
+        <h3>Picked for your fridge</h3>
+        <button class="text-link" data-screen="recipes">All recipes →</button>
+      </div>
+      <div class="recipe-grid" id="home-recipes"></div>
+    </section>
+
+    <!-- ========== My fridge ========== -->
+    <section class="screen" id="fridge">
+      <div class="section-head flush">
+        <div>
+          <h3>Your fridge inventory</h3>
+          <div class="sub">A clear view of what you have and what to use next.</div>
+        </div>
+        <button class="btn" data-screen="add">＋ Add product</button>
+      </div>
+
+      <div class="toolbar">
+        <input class="search" id="food-search" placeholder="Search ingredients..." />
+        <select id="food-filter" class="narrow">
+          <option value="all">All products</option>
+          <option value="urgent">Use soon</option>
+          <option value="fresh">Still fresh</option>
+        </select>
+      </div>
+
+      <div class="inventory" id="inventory-list"></div>
+      <div class="notice">Shelf-life dates are illustrative estimates for this prototype. Always follow the product label and check food condition; an app estimate cannot confirm food safety.</div>
+    </section>
+
+    <!-- ========== Smart recipes ========== -->
+    <section class="screen" id="recipes">
+      <div class="section-head flush">
+        <div>
+          <h3>Recipes for your ingredients</h3>
+          <div class="sub">Ranked to help you use priority ingredients first.</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <select id="recipe-filter">
+          <option value="all">All recipes</option>
+          <option value="quick">Under 25 minutes</option>
+          <option value="urgent">Uses priority ingredients</option>
+        </select>
+      </div>
+
+      <div class="recipe-grid spaced" id="recipe-list"></div>
+      <div id="recipe-detail"></div>
+    </section>
+
+    <!-- ========== Add product ========== -->
+    <section class="screen" id="add">
+      <div class="section-head flush">
+        <div>
+          <h3>Add something to your fridge</h3>
+          <div class="sub">Tell FreshMind what you bought or opened.</div>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <form id="add-form">
+          <div class="form-grid">
+            <div class="field">
+              <label for="product-name">Product name</label>
+              <input id="product-name" placeholder="e.g. Greek yogurt" required />
+            </div>
+            <div class="field">
+              <label for="product-category">Category</label>
+              <select id="product-category">
+                <option>Vegetables</option>
+                <option>Fruit</option>
+                <option>Dairy</option>
+                <option>Meat &amp; fish</option>
+                <option>Pantry</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="product-date">Purchase / opened date</label>
+              <input id="product-date" type="date" required />
+            </div>
+            <div class="field">
+              <label for="product-days">Estimated days remaining</label>
+              <input id="product-days" type="number" min="1" max="365" value="5" required />
+            </div>
+            <div class="field">
+              <label for="product-quantity">Quantity</label>
+              <input id="product-quantity" placeholder="e.g. 500 g" />
+            </div>
+            <div class="field">
+              <label for="product-state">Storage state</label>
+              <select id="product-state">
+                <option>Opened</option>
+                <option>Unopened</option>
+                <option>Fresh</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="notice">For this demo, enter an estimated number of days. A future version can calculate this using a trained prediction model and storage conditions.</div>
+
+          <div class="form-actions">
+            <button type="button" class="btn outline" data-screen="fridge">Cancel</button>
+            <button type="submit" class="btn">Add to my fridge</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="mobile-nav">
+  <button class="active" data-screen="home"><span>⌂</span>Home</button>
+  <button data-screen="fridge"><span>▣</span>Fridge</button>
+  <button data-screen="recipes"><span>♨</span>Recipes</button>
+  <button data-screen="add"><span>＋</span>Add</button>
+</nav>
+</body>
+</html>
